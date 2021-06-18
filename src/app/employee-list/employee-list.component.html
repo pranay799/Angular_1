@@ -1,0 +1,188 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Dashboard</li>
+          <li class="breadcrumb-item">Relocate</li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Employees List
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="title">Search the right candidate from below list</div>
+  <br />
+  <div class="row" id="list">
+    <div class="col-2">
+      <h5>Employee List</h5>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary" id="add" (click)="additem(any)">
+        Add
+      </button>
+    </div>
+    <div class="col-2" id="total">Total: {{ employeeList.length }}</div>
+  </div>
+  <div class="container-1">
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Technology</th>
+              <th scope="col">Skills</th>
+              <th scope="col">Total Experience</th>
+              <th scope="col">Availability</th>
+              <th scope="col">Base Location</th>
+              <th scope="col">Open Relocate</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="
+                let employee of employeeList
+                  | paginate: { itemsPerPage: 10, currentPage: p }
+              " id="tablerow">
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.designation }}</td>
+              <td>{{ employee.technologies }}</td>
+              <td>{{ employee.skill }}</td>
+              <td>{{ employee.totalExperience }}</td>
+              <td>{{ employee.availability }}</td>
+              <td>{{ employee.baseLocation }}</td>
+              <td>{{ employee.openRelocate }}</td>
+              <td>
+                <div class="icon-group">
+                  <button class="btn btn-secondary" (click)="onClick(employee)" style="cursor: pointer">
+                    Details
+                  </button>
+                  <button class="btn btn-danger" (click)="deleteRow(employee.id)" style="cursor: pointer">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="pagination">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+      <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Employee Details</h4>
+              <button type="button" class="close" data-dismiss="modal" (click)="hide()">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-4 textAlign">
+                  <span>Name</span>
+                  <h6 class="data">{{ rowData.name }}</h6>
+                  <span>Designation</span>
+                  <h6 class="data">{{ rowData.designation }}</h6>
+                  <span>Technology</span>
+                  <h6 class="data">{{ rowData.technologies }}</h6>
+                </div>
+                <div class="col-lg-4 textAlign">
+                  <span>Total Experience</span>
+                  <h6 class="data">{{ rowData.totalExperience }}</h6>
+                  <span>Skill</span>
+                  <h6 class="data">{{ rowData.skill }}</h6>
+                  <span>Availability</span>
+                  <h6 class="data">{{ rowData.availability }}</h6>
+                </div>
+                <div class="col-lg-4 textAlign">
+                  <span>Base Location</span>
+                  <h6 class="data">{{ rowData.baseLocation }}</h6>
+                  <span>Open Relocate</span>
+                  <h6 class="data">{{ rowData.openRelocate }}</h6>
+                </div>
+                <div class="textAlign">Message<br /><input type="text" /></div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="hide()">
+                Cancel
+              </button>
+              <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" id="addModal" [style.display]="showmodal ? 'block' : 'none'">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title">Add Employees</h2>
+              <button type="button" class="close" data-dismiss="modal" (click)="hide1()">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                <div class="form-group">
+                  <label for="name">Name: </label>
+                  <input class="form-control" type="text" id="name" name="name" formControlName="name" />
+                </div>
+                <div class="form-group">
+                  <label for="designation">Designation </label>
+                  <input class="form-control" type="text" id="designation" name="designation"
+                    formControlName="designation" />
+                </div>
+                <div class="form-group">
+                  <label for="technology">Technology</label>
+                  <input class="form-control" type="text" id="technology" name="technology"
+                    formControlName="technology" />
+                </div>
+                <div class="form-group">
+                  <label for="skills">Skills</label>
+                  <input class="form-control" type="Text" id="skills" name="skills" formControlName="skills" />
+                </div>
+                <div class="form-group">
+                  <label for="totalExperience">Total Experience</label>
+                  <input class="form-control" type="number" id="totalExperience" name="totalExperience"
+                    formControlName="totalExperience" />
+                </div>
+                <div class="form-group">
+                  <label for="availability">Availability</label>
+                  <input class="form-control" type="number" id="availability" name="availability"
+                    formControlName="availability" />
+                </div>
+                <div class="form-group">
+                  <label for="baseLocation">Base Location</label>
+                  <input class="form-control" type="text" id="baseLocation" name="baseLocation"
+                    formControlName="baseLocation" />
+                </div>
+                <div class="form-group">
+                  <label for="openRelocate">Open Relocate</label>
+                  <input class="form-control" type="boolean" id="openRelocate" name="openRelocate"
+                    formControlName="openRelocate" />
+                </div>
+                <div id="footer">
+                  <button type="reset" class="btn btn-secondary" (click)="hide1()">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-success">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

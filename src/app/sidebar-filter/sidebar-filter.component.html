@@ -1,0 +1,51 @@
+<div class="col-lg-12">
+  <em>Filter By</em>
+  <br /><br />
+  <h6>Technologies</h6>
+  <ng-multiselect-dropdown
+    [placeholder]="'Technologies'"
+    [settings]="dropDownSettings"
+    [data]="technologyList"
+    [(ngModel)]="selectedTechnologies"
+  >
+  </ng-multiselect-dropdown>
+  <br />
+  <h6>Skills</h6>
+  <ng-multiselect-dropdown
+    [placeholder]="'Skills'"
+    [settings]="dropDownSettings"
+    [data]="skillsList"
+    [(ngModel)]="selectedSkills"
+  >
+  </ng-multiselect-dropdown>
+
+  <br />
+  <h6>Total Experience</h6>
+  <ngx-slider
+    [(value)]="value"
+    [(highValue)]="highValue"
+    [options]="options"
+  ></ngx-slider>
+  <br /><br />
+  <h6>Location</h6>
+  <ng-multiselect-dropdown
+    [placeholder]="'Location'"
+    [settings]="dropDownSettings"
+    [data]="locationList"
+    [(ngModel)]="selectedLocations"
+  >
+  </ng-multiselect-dropdown>
+  <br />
+  <nav class="nav">
+    <button type="button" class="btn btn-primary" (click)="handleReset()">
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="returnSelectedFilters()"
+    >
+      Done
+    </button>
+  </nav>
+</div>

@@ -1,0 +1,12 @@
+<app-header></app-header>
+
+<div>
+  <div class="row" id="divider">
+    <div class="col-lg-2">
+      <app-sidebar-filter (selectedFilters)="filterTable($event)"></app-sidebar-filter>
+    </div>
+    <div class="col-lg-10">
+      <app-employee-list [employeeList]="filteredEmployees"></app-employee-list>
+    </div>
+  </div>
+</div>
